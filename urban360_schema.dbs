@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="MySql" database="MySql" id="MySql-1acc" >
+	<schema name="urban360" >
+		<table name="deployedonplatform" row_count="0" spec="" >
+			<column name="id" type="INT" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="deployment_id" type="INT" jt="4" mandatory="y" />
+			<column name="platform_id" type="INT" jt="4" mandatory="y" />
+			<column name="start_date" type="DATETIME" jt="93" mandatory="y" />
+			<column name="end_date" type="DATETIME" jt="93" />
+			<column name="geolocation" type="INT" jt="4" mandatory="y" />
+			<column name="location_of_interest" type="INT" jt="4" />
+			<index name="pk_deployedonplatform" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="fk_deployedonplatform_deployments" unique="NORMAL" >
+				<column name="deployment_id" />
+			</index>
+			<index name="fk_deployedonplatform_platforms1" unique="NORMAL" >
+				<column name="platform_id" />
+			</index>
+			<index name="fk_deployedonplatform_locations1" unique="NORMAL" >
+				<column name="geolocation" />
+			</index>
+			<index name="fk_deployedonplatform_locations2" unique="NORMAL" >
+				<column name="location_of_interest" />
+			</index>
+			<fk name="fk_deployedonplatform_deployments" to_schema="urban360" to_table="deployments" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="deployment_id" pk="id" />
+			</fk>
+			<fk name="fk_deployedonplatform_locations1" to_schema="urban360" to_table="locations" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="geolocation" pk="id" />
+			</fk>
+			<fk name="fk_deployedonplatform_locations2" to_schema="urban360" to_table="locations" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="location_of_interest" pk="id" />
+			</fk>
+			<fk name="fk_deployedonplatform_platforms1" to_schema="urban360" to_table="platforms" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="platform_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="deployments" row_count="0" spec="" >
+			<column name="id" type="INT" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="label" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="description" type="VARCHAR" length="500" jt="12" mandatory="y" />
+			<column name="external_url" type="VARCHAR" length="100" jt="12" />
+			<column name="start_date" type="DATETIME" jt="93" mandatory="y" />
+			<column name="end_date" type="DATETIME" jt="93" />
+			<column name="visibility" type="SMALLINT" jt="5" mandatory="y" />
+			<index name="pk_deployments" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="disciplines" row_count="0" spec="" >
+			<column name="id" type="VARCHAR" length="50" jt="12" mandatory="y" />
+			<column name="label" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="comment" type="VARCHAR" length="200" jt="12" mandatory="y" />
+			<index name="pk_disciplines" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="id_UNIQUE" unique="UNIQUE_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="features_of_interest" row_count="0" spec="" >
+			<column name="id" type="INT" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="label" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="description" type="VARCHAR" length="200" jt="12" mandatory="y" />
+			<index name="pk_features_of_interest" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="name_UNIQUE" unique="UNIQUE_KEY" >
+				<column name="name" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="locations" row_count="0" spec="" >
+			<column name="id" type="INT" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="description" type="VARCHAR" length="200" jt="12" />
+			<column name="name" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="label" type="VARCHAR" length="45" jt="12" />
+			<column name="address" type="VARCHAR" length="100" jt="12" />
+			<column name="geometry" type="VARCHAR" jt="12" mandatory="y" />
+			<column name="type" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<index name="pk_locations" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="observable_properties" prior="observableproperties" row_count="0" spec="" >
+			<column name="id" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="name" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="description" type="VARCHAR" length="1000" jt="12" mandatory="y" />
+			<column name="cumulative" type="TINYINT" jt="-6" mandatory="y" />
+			<index name="pk_observableproperties" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="name_UNIQUE" unique="UNIQUE_KEY" >
+				<column name="name" />
+			</index>
+			<index name="id_UNIQUE" unique="UNIQUE_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="observable_recommended_units" row_count="0" spec="" >
+			<column name="observableproperties_id" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="units_id" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<index name="pk_observable_recommended_units" unique="PRIMARY_KEY" >
+				<column name="observableproperties_id" />
+				<column name="units_id" />
+			</index>
+			<index name="fk_observableproperties_has_units_units1" unique="NORMAL" >
+				<column name="units_id" />
+			</index>
+			<fk name="fk_observableproperties_has_units_observableproperties1" to_schema="urban360" to_table="observable_properties" options="" >
+				<fk_column name="observableproperties_id" pk="id" />
+			</fk>
+			<fk name="fk_observableproperties_has_units_units1" to_schema="urban360" to_table="units" options="" >
+				<fk_column name="units_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="platforms" row_count="0" spec="" >
+			<column name="id" type="INT" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="label" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="type" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="description" type="VARCHAR" length="500" jt="12" mandatory="y" />
+			<column name="static" type="TINYINT" jt="-6" mandatory="y" >
+				<defo><![CDATA['1']]></defo>
+			</column>
+			<column name="visibility" type="SMALLINT" jt="5" mandatory="y" >
+				<defo><![CDATA['0']]></defo>
+			</column>
+			<index name="pk_platforms" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="sensors" row_count="0" spec="" >
+			<column name="id" type="INT" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="45" jt="12" />
+			<column name="label" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="description" type="VARCHAR" length="500" jt="12" />
+			<column name="implements" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="platform" type="INT" jt="4" mandatory="y" />
+			<index name="pk_sensors" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="fk_sensors_platforms1" unique="NORMAL" >
+				<column name="platform" />
+			</index>
+			<fk name="fk_sensors_platforms1" to_schema="urban360" to_table="platforms" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="platform" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="sensors_senses_observables" row_count="0" spec="" >
+			<column name="Sensor_id" type="INT" jt="4" mandatory="y" />
+			<column name="observableProperty_id" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<index name="pk_sensors_senses_observables" unique="PRIMARY_KEY" >
+				<column name="Sensor_id" />
+				<column name="observableProperty_id" />
+			</index>
+			<index name="fk_sensors_has_observableproperty_observableproperties1" unique="NORMAL" >
+				<column name="observableProperty_id" />
+			</index>
+			<fk name="fk_sensors_has_observableproperty_observableproperties1" to_schema="urban360" to_table="observable_properties" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="observableProperty_id" pk="id" />
+			</fk>
+			<fk name="fk_sensors_senses_observables_sensors" to_schema="urban360" to_table="sensors" delete_action="cascade" update_action="cascade" >
+				<fk_column name="Sensor_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="timeseries" row_count="0" spec="" >
+			<column name="id" type="INT" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTO_INCREMENT]]></identity>
+			</column>
+			<column name="observedProperty" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="comment" type="VARCHAR" length="100" jt="12" />
+			<column name="unit" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="time_interval" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="cumulative" type="TINYINT" jt="-6" mandatory="y" />
+			<column name="visibility" type="TINYINT" jt="-6" mandatory="y" />
+			<column name="from_sensor" type="INT" jt="4" mandatory="y" />
+			<index name="pk_timeseries" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="fk_timeseries_sensors1" unique="NORMAL" >
+				<column name="from_sensor" />
+			</index>
+			<index name="fk_timeseries_units1" unique="NORMAL" >
+				<column name="unit" />
+			</index>
+			<fk name="fk_timeseries_sensors1" to_schema="urban360" to_table="sensors" options="" >
+				<fk_column name="from_sensor" pk="id" />
+			</fk>
+			<fk name="fk_timeseries_units1" to_schema="urban360" to_table="units" options="" >
+				<fk_column name="unit" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="timeseries_has_disciplines" row_count="0" spec="" >
+			<column name="timeseries_id" type="INT" jt="4" mandatory="y" />
+			<column name="disciplines_id" type="VARCHAR" length="50" jt="12" mandatory="y" />
+			<index name="pk_timeseries_has_disciplines" unique="PRIMARY_KEY" >
+				<column name="timeseries_id" />
+				<column name="disciplines_id" />
+			</index>
+			<index name="fk_timeseries_has_disciplines_disciplines1" unique="NORMAL" >
+				<column name="disciplines_id" />
+			</index>
+			<fk name="fk_timeseries_has_disciplines_disciplines1" to_schema="urban360" to_table="disciplines" options="" >
+				<fk_column name="disciplines_id" pk="id" />
+			</fk>
+			<fk name="fk_timeseries_has_disciplines_timeseries1" to_schema="urban360" to_table="timeseries" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="timeseries_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="timeseries_has_features_of_interest" row_count="0" spec="" >
+			<column name="timeseries_id" type="INT" jt="4" mandatory="y" />
+			<column name="features_of_interest_id" type="INT" jt="4" mandatory="y" />
+			<index name="pk_timeseries_has_features_of_in" unique="PRIMARY_KEY" >
+				<column name="timeseries_id" />
+				<column name="features_of_interest_id" />
+			</index>
+			<index name="fk_timeseries_has_features_of_interest_features_of_interest1" unique="NORMAL" >
+				<column name="features_of_interest_id" />
+			</index>
+			<fk name="fk_timeseries_has_features_of_interest_features_of_interest1" to_schema="urban360" to_table="features_of_interest" options="" >
+				<fk_column name="features_of_interest_id" pk="id" />
+			</fk>
+			<fk name="fk_timeseries_has_features_of_interest_timeseries1" to_schema="urban360" to_table="timeseries" delete_action="cascade" update_action="cascade" options="" >
+				<fk_column name="timeseries_id" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+		<table name="units" row_count="0" spec="" >
+			<column name="id" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="label" type="VARCHAR" length="45" jt="12" mandatory="y" />
+			<column name="symbol" type="VARCHAR" length="5" jt="12" mandatory="y" />
+			<column name="comment" type="VARCHAR" length="300" jt="12" mandatory="y" />
+			<index name="pk_units" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="id_UNIQUE" unique="UNIQUE_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci]]></options>
+		</table>
+	</schema>
+	<layout name="Main Layout" id="Layout-c51" show_relation="cascade" >
+		<comment><![CDATA[Main Layout]]></comment>
+		<entity schema="urban360" name="deployedonplatform" color="C7F4BE" x="112" y="80" />
+		<entity schema="urban360" name="deployments" color="C7F4BE" x="48" y="320" />
+		<entity schema="urban360" name="disciplines" color="BED3F4" x="48" y="816" />
+		<entity schema="urban360" name="features_of_interest" color="BED3F4" x="128" y="1056" />
+		<entity schema="urban360" name="locations" color="C7F4BE" x="496" y="304" />
+		<entity schema="urban360" name="observable_properties" color="BED3F4" x="448" y="688" />
+		<entity schema="urban360" name="observable_recommended_units" color="BED3F4" x="384" y="896" />
+		<entity schema="urban360" name="platforms" color="C7F4BE" x="192" y="336" />
+		<entity schema="urban360" name="sensors" color="C7F4BE" x="352" y="336" />
+		<entity schema="urban360" name="sensors_senses_observables" color="BED3F4" x="400" y="544" />
+		<entity schema="urban360" name="timeseries" color="BED3F4" x="272" y="688" />
+		<entity schema="urban360" name="timeseries_has_disciplines" color="BED3F4" x="48" y="688" />
+		<entity schema="urban360" name="timeseries_has_features_of_interest" color="BED3F4" x="80" y="944" />
+		<entity schema="urban360" name="units" color="BED3F4" x="448" y="1040" />
+		<group name="physical concepts" color="EEF7EC" >
+			<entity schema="urban360" name="locations" />
+			<entity schema="urban360" name="platforms" />
+			<entity schema="urban360" name="deployments" />
+			<entity schema="urban360" name="sensors" />
+		</group>
+		<group name="timeseries" color="ECF0F7" >
+			<entity schema="urban360" name="observable_recommended_units" />
+			<entity schema="urban360" name="features_of_interest" />
+			<entity schema="urban360" name="units" />
+			<entity schema="urban360" name="disciplines" />
+			<entity schema="urban360" name="timeseries" />
+			<entity schema="urban360" name="observable_properties" />
+			<entity schema="urban360" name="timeseries_has_features_of_interest" />
+			<entity schema="urban360" name="timeseries_has_disciplines" />
+		</group>
+		<script name="SQL_Editor" id="Editor-1d2d" language="SQL" >
+			<string><![CDATA[-- MySQL Script generated by MySQL Workbench
+-- Sun Aug  4 13:23:42 2024
+-- Model: New Model    Version: 1.0
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema mcri
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Table `deployedonplatform`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `deployedonplatform` ;
+
+CREATE TABLE IF NOT EXISTS `deployedonplatform` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `deployment_id` INT NOT NULL,
+  `platform_id` INT NOT NULL,
+  `start_date` DATETIME NOT NULL,
+  `end_date` DATETIME NULL DEFAULT NULL,
+  `geolocation` INT NOT NULL,
+  `location_of_interest` INT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_deployedonplatform_deployments`
+    FOREIGN KEY (`deployment_id`)
+    REFERENCES `deployments` (`id`),
+  CONSTRAINT `fk_deployedonplatform_platforms1`
+    FOREIGN KEY (`platform_id`)
+    REFERENCES `platforms` (`id`),
+  CONSTRAINT `fk_deployedonplatform_locations1`
+    FOREIGN KEY (`geolocation`)
+    REFERENCES `locations` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_deployedonplatform_locations2`
+    FOREIGN KEY (`location_of_interest`)
+    REFERENCES `locations` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 27
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `deployments`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `deployments` ;
+
+CREATE TABLE IF NOT EXISTS `deployments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `label` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(500) NOT NULL,
+  `external_url` VARCHAR(100) NULL DEFAULT NULL,
+  `start_date` DATETIME NOT NULL,
+  `end_date` DATETIME NULL DEFAULT NULL,
+  `visibility` SMALLINT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 19
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `disciplines`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `disciplines` ;
+
+CREATE TABLE IF NOT EXISTS `disciplines` (
+  `id` VARCHAR(50) NOT NULL,
+  `label` VARCHAR(100) NOT NULL,
+  `comment` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `features_of_interest`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `features_of_interest` ;
+
+CREATE TABLE IF NOT EXISTS `features_of_interest` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `label` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `locations`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `locations` ;
+
+CREATE TABLE IF NOT EXISTS `locations` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `label` VARCHAR(45) NULL,
+  `description` VARCHAR(200) NULL,
+  `address` VARCHAR(100) NULL,
+  `geometry` GEOMETRY NOT NULL,
+  `type` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `observable_recommended_units`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `observable_recommended_units` ;
+
+CREATE TABLE IF NOT EXISTS `observable_recommended_units` (
+  `observableproperties_id` VARCHAR(45) NOT NULL,
+  `units_id` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`observableproperties_id`, `units_id`),
+  CONSTRAINT `fk_observableproperties_has_units_observableproperties1`
+    FOREIGN KEY (`observableproperties_id`)
+    REFERENCES `observableproperties` (`id`),
+  CONSTRAINT `fk_observableproperties_has_units_units1`
+    FOREIGN KEY (`units_id`)
+    REFERENCES `units` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `observableproperties`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `observableproperties` ;
+
+CREATE TABLE IF NOT EXISTS `observableproperties` (
+  `id` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
+  `cumulative` TINYINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `platforms`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `platforms` ;
+
+CREATE TABLE IF NOT EXISTS `platforms` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `label` VARCHAR(45) NOT NULL,
+  `type` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(500) NOT NULL,
+  `static` TINYINT NOT NULL DEFAULT '1',
+  `visibility` SMALLINT NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 14
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `sensors`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sensors` ;
+]]></string>
+		</script>
+	</layout>
+</project>
